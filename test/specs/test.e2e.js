@@ -1,7 +1,5 @@
 import { browser,expect } from '@wdio/globals'
 import LoginPage from '../pageobjects/login.page.js'
-import SecurePage from '../pageobjects/secure.page.js'
-import Products from '../pageobjects/products.page.js'
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {
@@ -11,9 +9,12 @@ describe('My Login application', () => {
             await browser.url('https://www.saucedemo.com/inventory.html');
             await expect(browser).toHaveUrl('https://www.saucedemo.com/inventory.html');
             
-            await Products.addToCart();
-            await expect(Products.backRemove).toHaveText('Remove');
-            await Products.logout();
+            await LoginPage.logout();
+    }
+        for (const username of LoginPage.credentials.users) {
+            await LoginPage.open();
+            await LoginPage.login(username, ``) ;
+            await expect(LoginPage.error).toContain('Epic sadface');
     }
     })
 })
