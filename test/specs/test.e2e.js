@@ -12,9 +12,10 @@ describe('My Login application', () => {
             await LoginPage.logout();
     }
         for (const username of LoginPage.credentials.users) {
+            await browser.refresh();
             await LoginPage.open();
             await LoginPage.login(username, ``) ;
-            await expect(LoginPage.error).toContain('Epic sadface');
+            await expect(LoginPage.error).toHaveText(expect.stringContaining('Epic sadface'));
     }
     })
 })
